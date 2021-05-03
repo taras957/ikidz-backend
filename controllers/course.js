@@ -1,4 +1,4 @@
-const Home = require("../models/Home");
+const Home = require("../models/home");
  var mongoose = require('mongoose');
 
 
