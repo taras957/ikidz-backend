@@ -126,10 +126,20 @@ exports.login = (req, res) => {
     });
     const { _id, name, email, role } = user;
     const oneDayToSeconds = 24 * 60 * 60;
+
+// res.writeHead(200, {
+//       "Set-Cookie": `userId=${token}; HttpOnly`,
+//       "Access-Control-Allow-Credentials": "true",
+//       "maxAge": oneDayToSeconds, 
+
+//     })
+
     res.cookie("userId",token, {
       maxAge: oneDayToSeconds, 
       // You can't access these tokens in the client's javascript
       httpOnly: true,
+      "Access-Control-Allow-Credentials": "true",
+
       // Forces to use https in production
       secure: process.env.NODE_ENV === "production" ? true : false,
     });
