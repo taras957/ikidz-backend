@@ -11,9 +11,8 @@ new AWS.Config({
 });
 
 exports.getUser = (req, res) => {
-  // const { token, user } = req.body;
-  console.log(req.user, "req344334r3");
-  return res.json({ user: req.user });
+  return res.json({ user: {...req.user,token:req.token
+} });
 };
 exports.register = (req, res) => {
   const { name, email, password } = req.body;
