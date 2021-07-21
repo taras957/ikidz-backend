@@ -1,33 +1,38 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
-
-const { InsertCourseImage } = require("../controllers/course");
+const {checkRootLogin } = require("../helpers/checkRootLogin");
 
 // imports from controllers
 
-const { updateCourse, createCourse } = require("../controllers/course");
+const {
+  updateCourse,
+  createCourse,
+  deleteCourse,
+  getSingleCourse,
+  getCourseCategories,
+} = require("../controllers/course");
 
 const multer = require("multer");
 // Uploading image to mongoDB Atlas
 const storage = multer.diskStorage({
   destination: "./public/uploads/images/courses",
+
   filename: function (req, file, cb) {
     cb(
       null,
-      file.fieldname + " " + Date.now() + path.extname(file.originalname)
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
     );
   },
 });
 const upload = multer({ storage: storage });
 
-router.post(
-  "/course/image/create/:courseId",
-  upload.single("image"),
-  InsertCourseImage
-);
+router.get("/course/categories", getCourseCategories);
 
-router.patch("/course/:courseId", updateCourse);
-router.post("/course/create", createCourse);
+router.get("/course/:courseId", getSingleCourse);
+router.patch("/course/:courseId",checkRootLogin, upload.single("image"), updateCourse);
+// router.patch("/course/toggleActive/:courseId", toggleCourseActive);
+router.post("/course/create",checkRootLogin, upload.single("image"), createCourse);
+router.delete("/course/:courseId",checkRootLogin, deleteCourse);
 
 module.exports = router;

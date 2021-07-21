@@ -2,15 +2,35 @@ const mongoose = require("mongoose");
 
 const CourseSchema = new mongoose.Schema(
   {
-    title: String,
-    subtitle: String,
-    price: String,
-    age: String,
     category: String,
-    duration: String,
-    description: String,
     is_active: Boolean,
     path: String,
+    translations: {
+      ua: {
+        title: String,
+        subtitle: String,
+        price: String,
+        age: String,
+        duration: String,
+        description: String,
+      },
+      rus: {
+        title: String,
+        subtitle: String,
+        price: String,
+        age: String,
+        duration: String,
+        description: String,
+      },
+      eng: {
+        title: String,
+        subtitle: String,
+        price: String,
+        age: String,
+        duration: String,
+        description: String,
+      },
+    },
   },
   { timestamps: true }
 );
@@ -35,29 +55,58 @@ const HomeSchema = new mongoose.Schema(
       facebook: String,
     },
     hero: {
-      title: {
-        type: String,
-        trim: true,
-        required: true,
-        max: 45,
+      rus: {
+        title: {
+          type: String,
+          trim: true,
+          required: true,
+          max: 45,
+        },
+        sub_title: {
+          type: String,
+          trim: true,
+          required: true,
+          max: 150,
+        },
+        button: String,
       },
-      sub_title: {
-        type: String,
-        trim: true,
-        required: true,
-        max: 150,
+      ua: {
+        title: {
+          type: String,
+          trim: true,
+          required: true,
+          max: 45,
+        },
+        sub_title: {
+          type: String,
+          trim: true,
+          required: true,
+          max: 150,
+        },
+        button: String,
       },
-      button: String,
+      eng: {
+        title: {
+          type: String,
+          trim: true,
+          required: true,
+          max: 45,
+        },
+        sub_title: {
+          type: String,
+          trim: true,
+          required: true,
+          max: 150,
+        },
+        button: String,
+      },
     },
     "about-us": {
       title: String,
       subtitle: String,
       motto: String,
     },
-    "our-team": {
-      title: String,
-      value: String,
-    },
+    "our-team": [String],
     development: {
       title: String,
       list: [DevelopmentSchema],
