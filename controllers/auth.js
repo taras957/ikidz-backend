@@ -139,7 +139,7 @@ exports.login = (req, res) => {
       // You can't access these tokens in the client's javascript
       httpOnly: true,
       "Access-Control-Allow-Credentials": "true",
-       Domain='herokuapp.com',
+       Domain:'herokuapp.com',
       // Forces to use https in production
       secure: process.env.NODE_ENV === "production" ? true : false,
     });
