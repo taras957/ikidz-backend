@@ -36,13 +36,15 @@ app.use(morgan("dev"));
 app.use(bodyParser.json());
 
 app.set("trust proxy", 1);
-
-app.use(
-  cors(   {
+const corsOptions = {
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
     credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    origin: ['https://ikidzfront.herokuapp.com']
-} 
+    methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
+    origin: "https://ikidzfront.herokuapp.com",
+    preflightContinue: false,
+};
+app.use(
+  cors(  corsOptions 
   )
 );
 
