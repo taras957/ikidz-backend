@@ -38,9 +38,7 @@ app.use(
   cors(    
   )
 );
-app.use(function(req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-})
+
 app.use("/public", express.static(path.resolve(__dirname + "/public")));
 
 app.use("/api", authRoutes);
