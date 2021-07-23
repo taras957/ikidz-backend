@@ -34,6 +34,9 @@ mongoose
 // middlewares
 app.use(morgan("dev"));
 app.use(bodyParser.json());
+
+app.set("trust proxy", 1);
+
 app.use(
   cors(   {
     credentials: true,
