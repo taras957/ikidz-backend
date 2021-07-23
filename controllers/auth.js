@@ -138,6 +138,7 @@ exports.login = (req, res) => {
       maxAge: oneDayToSeconds, 
       // You can't access these tokens in the client's javascript
       httpOnly: true,
+       sameSite: 'None',
       // "Access-Control-Allow-Credentials": "true",
       // Forces to use https in production
       secure: process.env.NODE_ENV === "production" ? true : false,
