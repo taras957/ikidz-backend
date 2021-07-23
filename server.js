@@ -35,7 +35,11 @@ mongoose
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(
-  cors(    
+  cors(   {
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    origin: ['https://ikidzfront.herokuapp.com']
+} 
   )
 );
 
