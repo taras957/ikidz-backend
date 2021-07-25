@@ -15,7 +15,6 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const path = require("path");
-var session = require('express-session')
 
 require("dotenv").config();
 
@@ -35,18 +34,8 @@ mongoose
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 
-app.set("trust proxy", 1);
-const corsOptions = {
-    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
-    credentials: true,
-    methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-    origin: "https://ikidzfront.herokuapp.com",
-    preflightContinue: false,
-};
-app.use(
-  cors(  corsOptions 
-  )
-);
+
+app.use(cors());
 
 app.use("/public", express.static(path.resolve(__dirname + "/public")));
 

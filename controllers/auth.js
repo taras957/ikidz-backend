@@ -12,7 +12,6 @@ new AWS.Config({
 
 exports.getUser = (req, res) => {
   // const { token, user } = req.body;
-  console.log(req.user, "req344334r3");
   return res.json({ user: req.user, token:req.token  });
 };
 exports.register = (req, res) => {
@@ -36,26 +35,10 @@ exports.register = (req, res) => {
     res.json({
       message: `Email has been sent to ${email}. token ${token} Follow the instructions to complete your registration`,
     });
-    // send email with validation token
-    const params = registerEmailParams(email, token);
 
-    // const sendEmailOnRegister =new AWS.SES().sendEmail(params).promise()
-    // sendEmailOnRegister
-    // .then((data) => {
-    //   console.log('email submitted', data)
-    //   res.json({
-    //     message: `Email has been sent to ${email}. Follow the instructions to complete your registration`
-    //   })
-    // } )
-    // .catch((e)=>  {
-    //   console.log('email reg error',e)
-    //    res.json({
-    //     message: `We could not verify your email, try again`
-    //   })
-    // })
+  
   });
 
-  console.log("REGISTER CONTROLLER", req.body);
 };
 
 exports.registerActivate = (req, res) => {
@@ -101,7 +84,6 @@ exports.registerActivate = (req, res) => {
 };
 exports.login = (req, res) => {
   const { email, password } = req.body;
-  console.table({ email, password });
 
   // check if user with email exist
   User.findOne({ email }).exec((err, user) => {
@@ -110,7 +92,6 @@ exports.login = (req, res) => {
         error: "User with this email does not exist. Please register",
       });
     }
-    console.log(user, "user");
     // check if user password is valid
     //  use authenticate method from user model
     if (!user.authenticate(password)) {
@@ -125,26 +106,7 @@ exports.login = (req, res) => {
       expiresIn: "1d",
     });
     const { _id, name, email, role } = user;
-    const oneDayToSeconds = 24 * 60 * 60;
 
-// res.writeHead(200, {
-//       "Set-Cookie": `userId=${token}; HttpOnly`,
-//       "Access-Control-Allow-Credentials": "true",
-//       "maxAge": oneDayToSeconds, 
-
-//     })
-
-    res.cookie("userId",token, {
-      maxAge: oneDayToSeconds, 
-      // You can't access these tokens in the client's javascript
-      httpOnly: true,
-       sameSite: 'None',
-               domain: '.herokuapp.com',
-
-      // "Access-Control-Allow-Credentials": "true",
-      // Forces to use https in production
-      secure: process.env.NODE_ENV === "production" ? true : false,
-    });
 
     return res.json({ token, user: { _id, name, email, role } });
   });
