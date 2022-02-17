@@ -1,26 +1,20 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+const defaultTestimonialSchemaTranslation = {
+  title: { type: String, default: 'text placeholder title' },
+  date: { type: String, default: 'text placeholder date' },
+  description: { type: String, default: 'text placeholder' },
+};
+
 const TestimonialSchema = new mongoose.Schema(
   {
     is_active: Boolean,
     translations: {
-      ua: {
-        title: String,
-        date: String,
-        description: String,
-      },
-      rus: {
-        title: String,
-        date: String,
-        description: String,
-      },
-      eng: {
-        title: String,
-        date: String,
-        description: String,
-      },
+      ua: defaultTestimonialSchemaTranslation,
+      rus: defaultTestimonialSchemaTranslation,
+      eng: defaultTestimonialSchemaTranslation,
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Testimonial", TestimonialSchema);
+module.exports = mongoose.model('Testimonial', TestimonialSchema);

@@ -1,18 +1,18 @@
-const jwt = require("jsonwebtoken");
-const User = require("../models/user");
+const jwt = require('jsonwebtoken');
+const User = require('../models/user');
 
 const checkRootLogin = async (req, res, next) => {
   try {
-    const token = req.header("Authorization").replace("Bearer ", "");
+    const token = req.header('Authorization').replace('Bearer ', '');
     // const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     const rootUser = await User.findOne({
       _id: decoded._id,
     });
-
+    console.log(rootUser);
     if (!rootUser) {
-      throw new Error("User cannot find!!");
+      throw new Error('User cannot find!!');
     }
 
     req.token = token;
@@ -20,7 +20,7 @@ const checkRootLogin = async (req, res, next) => {
     req.user_id = rootUser._id;
     next();
   } catch (e) {
-    res.status(401).send({ error: "Authentication problem!!" });
+    res.status(401).send({ error: 'Authentication problem!!' });
   }
 };
 

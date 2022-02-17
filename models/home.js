@@ -1,4 +1,31 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+
+const defaultCourseTranslation = {
+  title: { type: String, default: 'course title' },
+  subtitle: { type: String, default: 'course subtitle' },
+  price: { type: String, default: '1 million' },
+  age: { type: String, default: 'ever young' },
+  duration: { type: String, default: 'forever' },
+  description: { type: String, default: 'text placeholder' },
+};
+
+const defaultHeroTranslations = {
+  title: {
+    type: String,
+    trim: true,
+    required: true,
+    max: 45,
+    default: 'text placeholder',
+  },
+  sub_title: {
+    type: String,
+    trim: true,
+    required: true,
+    max: 150,
+    default: 'text placeholder',
+  },
+  button: { type: String, default: 'text placeholder' },
+};
 
 const CourseSchema = new mongoose.Schema(
   {
@@ -6,35 +33,14 @@ const CourseSchema = new mongoose.Schema(
     is_active: Boolean,
     path: String,
     translations: {
-      ua: {
-        title: String,
-        subtitle: String,
-        price: String,
-        age: String,
-        duration: String,
-        description: String,
-      },
-      rus: {
-        title: String,
-        subtitle: String,
-        price: String,
-        age: String,
-        duration: String,
-        description: String,
-      },
-      eng: {
-        title: String,
-        subtitle: String,
-        price: String,
-        age: String,
-        duration: String,
-        description: String,
-      },
+      ua: defaultCourseTranslation,
+      rus: defaultCourseTranslation,
+      eng: defaultCourseTranslation,
     },
   },
   { timestamps: true }
 );
-module.exports = mongoose.model("Course", CourseSchema);
+module.exports = mongoose.model('Course', CourseSchema);
 const DevelopmentSchema = new mongoose.Schema(
   {
     title: String,
@@ -55,58 +61,16 @@ const HomeSchema = new mongoose.Schema(
       facebook: String,
     },
     hero: {
-      rus: {
-        title: {
-          type: String,
-          trim: true,
-          required: true,
-          max: 45,
-        },
-        sub_title: {
-          type: String,
-          trim: true,
-          required: true,
-          max: 150,
-        },
-        button: String,
-      },
-      ua: {
-        title: {
-          type: String,
-          trim: true,
-          required: true,
-          max: 45,
-        },
-        sub_title: {
-          type: String,
-          trim: true,
-          required: true,
-          max: 150,
-        },
-        button: String,
-      },
-      eng: {
-        title: {
-          type: String,
-          trim: true,
-          required: true,
-          max: 45,
-        },
-        sub_title: {
-          type: String,
-          trim: true,
-          required: true,
-          max: 150,
-        },
-        button: String,
-      },
+      rus: defaultHeroTranslations,
+      ua: defaultHeroTranslations,
+      eng: defaultHeroTranslations,
     },
-    "about-us": {
+    'about-us': {
       title: String,
       subtitle: String,
       motto: String,
     },
-    "our-team": [String],
+    'our-team': [String],
     development: {
       title: String,
       list: [DevelopmentSchema],
@@ -122,4 +86,4 @@ const HomeSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Home", HomeSchema);
+module.exports = mongoose.model('Home', HomeSchema);
